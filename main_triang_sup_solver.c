@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <math.h>   
 #include "linalg.h"
 int main(void) {
     int n;
@@ -25,5 +27,9 @@ int main(void) {
         }
     }
     return 0;
-}
+
 tol = 1e-12;
+resoltrisup(n, A, b, x, tol);
+
+return 0;
+}
