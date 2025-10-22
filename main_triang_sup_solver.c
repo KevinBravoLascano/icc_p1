@@ -2,7 +2,7 @@
 #include "linalg.h"
 int main(void) {
     int n;
-
+    scanf("%d", &n);
     double *b, **A;
 
     b= ( double *) malloc (n*sizeof(double) );
