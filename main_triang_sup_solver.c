@@ -11,10 +11,14 @@ int main(void) {
         A[i]= ( double *) malloc (n*sizeof(double) );
     }
 
+
+    
     //lectura
+    printf("Introdueix el vector b\n");
     for(int i=0; i<n;i++){
         scanf("%lf", &b[i]);
     }
+    printf("Introdueix la matriu A\n");
     for(int i=0; i<n;i++){
         for(int j=0;j<n;j++){
             scanf("%lf", &A[i][j]);
@@ -22,3 +26,4 @@ int main(void) {
     }
     return 0;
 }
+tol = 1e-12;
