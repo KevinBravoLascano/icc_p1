@@ -1,0 +1,1 @@
+int resoltrisup(int n, double **a, double *b, double *x, double tol);
