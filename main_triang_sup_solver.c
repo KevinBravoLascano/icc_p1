@@ -1,35 +1,58 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>   
+#include <math.h>
 #include "linalg.h"
+
 int main(void) {
     int n;
+    printf("Introduce el tamaño n:\n");
     scanf("%d", &n);
-    double *b, **A;
 
-    b= ( double *) malloc (n*sizeof(double) );
-    A= ( double **) malloc (n*sizeof(double *) );
-    for(int i=0; i<n; i++) {
-        A[i]= ( double *) malloc (n*sizeof(double) );
-    }
+    double **A = malloc(n * sizeof(double *));
+    double *b = malloc(n * sizeof(double));
+    double *x = malloc(n * sizeof(double));
+    double *r = malloc(n * sizeof(double));
 
+    for(int i = 0; i < n; i++)
+        A[i] = malloc(n * sizeof(double));
 
-    
-    //lectura
-    printf("Introdueix el vector b\n");
-    for(int i=0; i<n;i++){
+    // Lectura
+    printf("Introdueix el vector b:\n");
+    for(int i = 0; i < n; i++)
         scanf("%lf", &b[i]);
-    }
-    printf("Introdueix la matriu A\n");
-    for(int i=0; i<n;i++){
-        for(int j=0;j<n;j++){
+
+    printf("Introdueix la matriu A:\n");
+    for(int i = 0; i < n; i++)
+        for(int j = 0; j < n; j++)
             scanf("%lf", &A[i][j]);
-        }
-    }
+
+    // Tolerancia
+    double tol = 1e-12;
+
+    // Resolver sistema triangular superior
+    resoltrisup(n, A, b, x, tol);
+
+    // Calcular residuo r = A*x - b
+    residuo(n, A, b, x, r);
+
+    // Calcular norma-2 del residuo
+    double norma2 = sqrt(prod_esc(n, r, r));
+
+    // Mostrar resultados
+    printf("\nSolució x:\n");
+    for(int i = 0; i < n; i++)
+        printf("%lf\n", x[i]);
+
+    printf("\nNorma-2 del residu: %e\n", norma2);
+
+    // Liberar memoria
+    for(int i = 0; i < n; i++)
+        free(A[i]);
+    free(A);
+    free(b);
+    free(x);
+    free(r);
+
     return 0;
-
-tol = 1e-12;
-resoltrisup(n, A, b, x, tol);
-
-return 0;
 }
+
