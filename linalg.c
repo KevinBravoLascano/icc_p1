@@ -1,6 +1,11 @@
 #include <stdlib.h>
 int resoltrisup(int n, double **a, double *b, double *x, double tol){
+    
     for(int i=n-1; i>=0; i--){
+        if (fabs(a[i][i]) < tol) {
+            // Elemento de la diagonal demasiado pequeño
+            return 1; 
+        }
         x[i] = b[i];
         for(int k=i+1; k<n; k++){
             x[i] -= a[i][k] * x[k];
@@ -9,6 +14,17 @@ int resoltrisup(int n, double **a, double *b, double *x, double tol){
     }
     return 0; // Èxit
 
+}
+
+int resoltriinf(int n, double **a, double *b, double *x){
+    for(int i=0; i<n; i++){
+        x[i] = b[i];
+        for(int k=0; k<i; k++){
+            x[i] -= a[i][k] * x[k];
+        }
+        
+    }
+    return 0; // Èxit
 }
 
 void prodMatVec(int n, double **A, double *u, double *v){
