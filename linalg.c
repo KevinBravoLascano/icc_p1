@@ -30,6 +30,57 @@ int resoltriinf(int n, double **a, double *b, double *x){
     return 0; // Èxit
 }
 
+int gausspiv(int n, double **a, double *b, double tol) {
+    for (int k = 0; k < n - 1; k++) {
+        // Buscar pivote máximo en columna 
+        int l = k;
+        double max = fabs(a[k][k]);
+        for (int i = k + 1; i < n; i++) {
+            if (fabs(a[i][k]) > max) {
+                max = fabs(a[i][k]);
+                l = i;
+            }
+        }
+
+    
+        if (max < tol) {//si no cumple, fuera, acaba
+            printf("Error: pivote demasiado pequeño en columna %d (|a[%d][%d]| = %e)\n", k, l, k, max);
+            return -1;
+        }
+
+        
+        if (l != k) {
+            double *temp = a[k]; //hacemos los cambios de filas de lo q toque
+            a[k] = a[l];
+            a[l] = temp;
+
+            double tmpb = b[k];
+            b[k] = b[l];
+            b[l] = tmpb;
+        }
+
+       
+        for (int i = k + 1; i < n; i++) {//hare que deje matriz trriangle superior, es decir bajo ma diagonal todo 0
+            double factor = a[i][k] / a[k][k];
+            a[i][k] = 0.0; // limpiar elemento
+
+            for (int j = k + 1; j < n; j++) {
+                a[i][j] -= factor * a[k][j];
+            }
+
+            b[i] -= factor * b[k];
+        }
+    }
+
+    // Verificar último pivote 
+    if (fabs(a[n - 1][n - 1]) < tol) {
+        printf("Error: pivote demasiado pequeño en última fila.\n");
+        return -1;
+    }
+
+    return 0; // Éxito
+}
+
 void prodMatVec(int n, double **a, double *u, double *v){
     for(int i=0;i<n;i++){
         v[i]=0.0;
@@ -42,7 +93,7 @@ void prodMatMat(int n,int p,int m, double** a, double** b,double **c){
     for(int i=0;i<n;i++){
         for(int j=0;j<m;j++){
             for(int k=0;k<p;k++){
-                c[i][j]+=a[i][k]*b[k][j];
+                c[i][j]+=a[i][k]*b[k][j];//aplicamos la formula d emultiplicar matrices
             }
         }
 

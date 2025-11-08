@@ -88,7 +88,7 @@ int main(void){
 
 
     printf("\nNorma-2 del residu: %e\n", normaInf);
-
+    //liberacion de memoria
     for(int i = 0; i < n; i++){
         free(a[i]);
         free(identitat[i]);
