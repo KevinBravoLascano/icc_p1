@@ -102,17 +102,20 @@ void prodMatMat(int n,int p,int m, double** a, double** b,double **c){
 
 double prod_esc(int n, double *x, double *y){
     double prod = 0.0;
-    for(int i=0; i<n; i++)
+    for(int i=0; i<n; i++){
         prod += x[i]*y[i];
+        
+    }
     return prod;
 }
 void residuo(int n, double **a, double *b, double *x, double *r){
     double *Ax = (double*) malloc(n*sizeof(double));
     prodMatVec(n, a, x, Ax);  // Ax = A*x
-    
-    for(int i=0;i<n;i++)
+   
+    for(int i=0;i<n;i++){
         r[i] = Ax[i] - b[i];  // r = Ax - b
-
+        
+    }
     free(Ax);
 }
 
