@@ -27,7 +27,9 @@ int main(void) {
             scanf("%lf", &A[i][j]);
 
     // Tolerancia
-    double tol = 1e-12;
+    double tol;
+    printf("Introduce la tolerancia (1e-x):\n");
+    scanf("%d", &tol);
 
     // Resolver sistema triangular superior
     resoltrisup(n, A, b, x, tol);
