@@ -109,7 +109,6 @@ double prod_esc(int n, double *x, double *y){
 void residuo(int n, double **a, double *b, double *x, double *r){
     double *Ax = (double*) malloc(n*sizeof(double));
     prodMatVec(n, a, x, Ax);  // Ax = A*x
-    printf("matriz Ax:\n");
     
     for(int i=0;i<n;i++)
         r[i] = Ax[i] - b[i];  // r = Ax - b
