@@ -38,6 +38,16 @@ void prodMatVec(int n, double **a, double *u, double *v){
     }
 }
 
+void prodMatMat(int n,int p,int m, double** a, double** b,double **c){
+    for(int i=0;i<n;i++){
+        for(int j=0;j<m;j++){
+            for(int k=0;k<p;k++){
+                c[i][j]+=a[i][k]*b[k][j];
+            }
+        }
+
+    }
+}
 
 double prod_esc(int n, double *x, double *y){
     double prod = 0.0;
